@@ -12,7 +12,12 @@ function Welcome() {
 
   return (
     <div>
-        Welcome {user?.profile.given_name} {user?.profile.family_name} your email is {user?.profile.name}
+        Welcome. {user?.profile.given_name} {user?.profile.family_name} your email is {user?.profile.name}
+        <br />
+        <button onClick={async() => await userManager.signoutRedirect({
+          id_token_hint: user?.id_token,
+          state: user?.state
+        })}>Logout</button>
     </div>
   );
 }
