@@ -1,3 +1,4 @@
+import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import SigninRedirect from './components/pages/signinRedirect'
 import Welcome from './components/pages/welcome'

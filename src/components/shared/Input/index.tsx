@@ -3,6 +3,7 @@ import { InputProps } from './interface'
 export const InputField: React.FC<InputProps> = ({
     isError,
     className,
+    register,
     ...props
 }) => {
     const defaultSyle = `mb-2 p-2 rounded-md border ${
@@ -11,5 +12,7 @@ export const InputField: React.FC<InputProps> = ({
             : 'border-primary-light-hover placeholder-primary-light-hover text-primary-light-hover  focus:outline-primary-normal-active focus:text-primary-normal-active'
     } w-96 h-14`
 
-    return <input {...props} className={className || defaultSyle} />
+    return (
+        <input {...props} {...register} className={className || defaultSyle} />
+    )
 }
