@@ -7,7 +7,7 @@ import {
 } from '../../shared/Button'
 import { InputField } from '../../shared/Input'
 import { ErrorLabel } from '../../shared/ErrorLabel'
-import { FormFields, schema } from './form.d'
+import { FormFields, schema } from './form'
 import { HeadingOne } from '../../shared/Heading'
 
 const Home = () => {
