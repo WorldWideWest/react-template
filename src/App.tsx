@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Home from './components/pages/homePage'
 import SigninRedirect from './components/pages/signinRedirect'
 import Welcome from './components/pages/welcome'
 import SignOutRedirect from './components/pages/sigonutRedirect'
+import Home from './components/pages/homePage'
 export default function App() {
     return (
         <BrowserRouter>
