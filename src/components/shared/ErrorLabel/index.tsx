@@ -6,8 +6,7 @@ export const ErrorLabel: React.FC<ErrorLabelProps> = ({
     className,
     ...props
 }) => {
-    const defaultStyle =
-        'text-xs text-left text-danger-normal flex-1 block overflow-y overflow-x-hidden break-words'
+    const defaultStyle = 'text-xs text-danger-normal block break-words'
 
     return (
         <p className={className || defaultStyle} {...props}>

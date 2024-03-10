@@ -30,7 +30,7 @@ const resendVerificationAsync = async (
 ): Promise<Result<object>> => {
     try {
         const result = await instance.post<Result<object>>(
-            Path.resendConfirmationEmail,
+            Path.confirmEmailResend,
             request
         )
 
@@ -44,7 +44,10 @@ const verifyAsync = async (
     request: VerifyEmailRequest
 ): Promise<Result<object>> => {
     try {
-        const result = await instance.post<Result<object>>(Path.verify, request)
+        const result = await instance.post<Result<object>>(
+            Path.confirmEmail,
+            request
+        )
 
         return result.data
     } catch (error) {
@@ -57,7 +60,7 @@ const forgotPasswordAsync = async (
 ): Promise<Result<object>> => {
     try {
         const result = await instance.post<Result<object>>(
-            Path.forgotPassword,
+            Path.passwordForgot,
             request
         )
 
@@ -72,7 +75,7 @@ const resetPasswordAsync = async (
 ): Promise<Result<object>> => {
     try {
         const result = await instance.post<Result<object>>(
-            Path.verifyPassword,
+            Path.passwordVerify,
             request
         )
 
@@ -87,7 +90,7 @@ const changePasswordAsync = async (
 ): Promise<Result<object>> => {
     try {
         // Add token header on implementation
-        const result = await instance.put<Result<object>>(Path.changePassword, {
+        const result = await instance.put<Result<object>>(Path.passwordChange, {
             ...request,
         })
 
@@ -100,7 +103,7 @@ const changePasswordAsync = async (
 const deactivateAsync = async (): Promise<Result<object>> => {
     try {
         // Add token header on implementation
-        const result = await instance.delete<Result<object>>(Path.delete)
+        const result = await instance.delete<Result<object>>(Path.deleteUser)
 
         return result.data
     } catch (error) {

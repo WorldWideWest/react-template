@@ -6,6 +6,13 @@ module.exports = {
             backgroundColor: {
                 'main-bg': '#FAFAFA',
             },
+            width: {
+                'form-w-xs': '80vw',
+                'form-w-sm': '50vw',
+                'form-w-md': '38vw',
+                'form-w-lg': '20vw',
+                'form-w-xl': '20vw',
+            },
         },
         colors: {
             primary: {
