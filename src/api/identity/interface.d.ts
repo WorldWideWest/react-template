@@ -5,26 +5,26 @@ export interface RegisterUserRequest {
     password: string
 }
 
-export interface ResendVerificationMailRequest {
+export interface EmailVerificationResendRequest {
     email: string
 }
 
-export interface VerifyEmailRequest {
+export interface EmailVerificationRequest {
     email: string
     token: string
 }
 
-export interface ForgotPasswordRequest {
+export interface PasswordForgotRequest {
     email: string
 }
 
-export interface ResetPasswordRequest {
+export interface PassworResetRequest {
     email: string
     token: string
     password: string
 }
 
-export interface ChangePasswordRequest {
+export interface PasswordChangeRequest {
     oldPassword: string
     newPassword: string
 }

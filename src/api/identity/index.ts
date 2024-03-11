@@ -1,13 +1,13 @@
-import Path from '../../constants/identity/paths'
+import Endpoint from '../../constants/identity/paths'
 import instance from '../axios'
 import { Result } from '../interface'
 import {
-    ChangePasswordRequest,
-    ForgotPasswordRequest,
+    PasswordChangeRequest,
+    PasswordForgotRequest,
     RegisterUserRequest,
-    ResendVerificationMailRequest,
-    ResetPasswordRequest,
-    VerifyEmailRequest,
+    EmailVerificationResendRequest,
+    PassworResetRequest,
+    EmailVerificationRequest,
 } from './interface'
 
 const registerUserAsync = async (
@@ -15,7 +15,7 @@ const registerUserAsync = async (
 ): Promise<Result<object>> => {
     try {
         const result = await instance.post<Result<object>>(
-            Path.register,
+            Endpoint.register,
             request
         )
 
@@ -26,11 +26,11 @@ const registerUserAsync = async (
 }
 
 const resendVerificationAsync = async (
-    request: ResendVerificationMailRequest
+    request: EmailVerificationResendRequest
 ): Promise<Result<object>> => {
     try {
         const result = await instance.post<Result<object>>(
-            Path.confirmEmailResend,
+            Endpoint.emailVerificationResend,
             request
         )
 
@@ -41,11 +41,11 @@ const resendVerificationAsync = async (
 }
 
 const verifyAsync = async (
-    request: VerifyEmailRequest
+    request: EmailVerificationRequest
 ): Promise<Result<object>> => {
     try {
         const result = await instance.post<Result<object>>(
-            Path.confirmEmail,
+            Endpoint.emailConfirmation,
             request
         )
 
@@ -56,11 +56,11 @@ const verifyAsync = async (
 }
 
 const forgotPasswordAsync = async (
-    request: ForgotPasswordRequest
+    request: PasswordForgotRequest
 ): Promise<Result<object>> => {
     try {
         const result = await instance.post<Result<object>>(
-            Path.passwordForgot,
+            Endpoint.passwordForgot,
             request
         )
 
@@ -71,11 +71,11 @@ const forgotPasswordAsync = async (
 }
 
 const resetPasswordAsync = async (
-    request: ResetPasswordRequest
+    request: PassworResetRequest
 ): Promise<Result<object>> => {
     try {
         const result = await instance.post<Result<object>>(
-            Path.passwordVerify,
+            Endpoint.passwordVerify,
             request
         )
 
@@ -86,13 +86,16 @@ const resetPasswordAsync = async (
 }
 
 const changePasswordAsync = async (
-    request: ChangePasswordRequest
+    request: PasswordChangeRequest
 ): Promise<Result<object>> => {
     try {
         // Add token header on implementation
-        const result = await instance.put<Result<object>>(Path.passwordChange, {
-            ...request,
-        })
+        const result = await instance.put<Result<object>>(
+            Endpoint.passwordChange,
+            {
+                ...request,
+            }
+        )
 
         return result.data
     } catch (error) {
@@ -103,7 +106,9 @@ const changePasswordAsync = async (
 const deactivateAsync = async (): Promise<Result<object>> => {
     try {
         // Add token header on implementation
-        const result = await instance.delete<Result<object>>(Path.deleteUser)
+        const result = await instance.delete<Result<object>>(
+            Endpoint.deleteUser
+        )
 
         return result.data
     } catch (error) {
