@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import ErrorMessage from '../../../constants/identity/errors'
+import ErrorMessage from '../../../constants/identity/errors/message'
 
 export const schema = z.object({
     email: z

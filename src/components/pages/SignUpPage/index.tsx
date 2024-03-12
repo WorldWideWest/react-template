@@ -7,19 +7,47 @@ import { ErrorLabel } from '../../shared/ErrorLabel'
 import { PrimaryButton } from '../../shared/Button'
 import { FormFields, schema } from './form'
 import { FormWrapper } from '../../shared/FormWrapper'
+import { useNavigate } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import { Identity } from '../../../api/identity'
+import { Result } from '../../../api/interface'
+import { SignUpRequest } from '../../../api/identity/interface'
+import { AxiosError } from 'axios'
+import {
+    findUserAlreadyExistsError,
+    toResult,
+    toUserAlreadyExistsErrorObject,
+} from '../../../utils'
 
 const SignUpPage = () => {
+    const navigate = useNavigate()
+
     const {
         register,
         handleSubmit,
+        setError,
         formState: { errors, isValid, isLoading },
     } = useForm<FormFields>({
         resolver: zodResolver(schema),
         mode: 'all',
     })
 
-    const onSubmit: SubmitHandler<FormFields> = (data) => {
-        console.log('data :>> ', data) // TODO: emit event for calling api
+    const { mutateAsync: signUpMutationAsync } = useMutation<
+        Result<object>,
+        AxiosError,
+        SignUpRequest
+    >({
+        mutationFn: Identity.signUpAsync,
+    })
+
+    const onSubmit: SubmitHandler<FormFields> = async (request) => {
+        try {
+            const result = await signUpMutationAsync({ ...request })
+            if (result.succeeded) navigate('/')
+        } catch (error) {
+            const errorObject = toUserAlreadyExistsErrorObject(error)
+            setError('email', errorObject.error, errorObject.options)
+        }
     }
 
     return (
@@ -78,7 +106,7 @@ const SignUpPage = () => {
                 </div>
 
                 <PrimaryButton
-                    text='Login'
+                    text='SignUp'
                     isLoading={isLoading}
                     disabled={!isValid}
                     type='submit'

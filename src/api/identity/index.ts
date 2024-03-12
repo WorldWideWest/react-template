@@ -1,21 +1,25 @@
+import { AxiosError } from 'axios'
 import Endpoint from '../../constants/identity/paths'
 import instance from '../axios'
 import { Result } from '../interface'
 import {
     PasswordChangeRequest,
     PasswordForgotRequest,
-    RegisterUserRequest,
+    SignUpRequest,
     EmailVerificationResendRequest,
     PassworResetRequest,
     EmailVerificationRequest,
 } from './interface'
 
-const registerUserAsync = async (
-    request: RegisterUserRequest
-): Promise<Result<object>> => {
+/**
+ * Create new User.
+ * @param {SignUpRequest} request The sign-up request object.
+ * @returns {Promise<Result<object>>} A promise that resolves to the result object.
+ */
+const signUpAsync = async (request: SignUpRequest): Promise<Result<object>> => {
     try {
         const result = await instance.post<Result<object>>(
-            Endpoint.register,
+            Endpoint.signUp,
             request
         )
 
@@ -25,7 +29,7 @@ const registerUserAsync = async (
     }
 }
 
-const resendVerificationAsync = async (
+const emailVerificationResendAsync = async (
     request: EmailVerificationResendRequest
 ): Promise<Result<object>> => {
     try {
@@ -40,7 +44,7 @@ const resendVerificationAsync = async (
     }
 }
 
-const verifyAsync = async (
+const emailVerificationAsync = async (
     request: EmailVerificationRequest
 ): Promise<Result<object>> => {
     try {
@@ -55,7 +59,7 @@ const verifyAsync = async (
     }
 }
 
-const forgotPasswordAsync = async (
+const passwordForgotAsync = async (
     request: PasswordForgotRequest
 ): Promise<Result<object>> => {
     try {
@@ -70,7 +74,7 @@ const forgotPasswordAsync = async (
     }
 }
 
-const resetPasswordAsync = async (
+const passwordResetAsync = async (
     request: PassworResetRequest
 ): Promise<Result<object>> => {
     try {
@@ -85,7 +89,7 @@ const resetPasswordAsync = async (
     }
 }
 
-const changePasswordAsync = async (
+const passwordChangeAsync = async (
     request: PasswordChangeRequest
 ): Promise<Result<object>> => {
     try {
@@ -103,7 +107,7 @@ const changePasswordAsync = async (
     }
 }
 
-const deactivateAsync = async (): Promise<Result<object>> => {
+const deleteAsync = async (): Promise<Result<object>> => {
     try {
         // Add token header on implementation
         const result = await instance.delete<Result<object>>(
@@ -117,11 +121,11 @@ const deactivateAsync = async (): Promise<Result<object>> => {
 }
 
 export const Identity = {
-    registerUserAsync,
-    resendVerificationAsync,
-    verifyAsync,
-    forgotPasswordAsync,
-    resetPasswordAsync,
-    changePasswordAsync,
-    deactivateAsync,
+    signUpAsync,
+    emailVerificationResendAsync,
+    emailVerificationAsync,
+    passwordForgotAsync,
+    passwordResetAsync,
+    passwordChangeAsync,
+    deleteAsync,
 }

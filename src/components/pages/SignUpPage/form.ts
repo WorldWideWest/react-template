@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import Regex from '../../../constants/identity/regex'
-import ErrorMessage from '../../../constants/identity/errors'
+import ErrorMessage from '../../../constants/identity/errors/message'
 
 export const schema = z.object({
     firstName: z
