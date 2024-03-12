@@ -43,7 +43,8 @@ const SignUpPage = () => {
     const onSubmit: SubmitHandler<FormFields> = async (request) => {
         try {
             const result = await signUpMutationAsync({ ...request })
-            if (result.succeeded) navigate('/')
+            if (result.succeeded)
+                navigate('/resend', { state: { email: request.email } })
         } catch (error) {
             const errorObject = toUserAlreadyExistsErrorObject(error)
             setError('email', errorObject.error, errorObject.options)
