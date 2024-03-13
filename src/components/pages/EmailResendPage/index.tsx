@@ -8,7 +8,7 @@ import { EmailVerificationResendRequest } from '../../../api/identity/interface'
 import { Identity } from '../../../api/identity'
 import { HeadingOne } from '../../shared/Heading'
 
-const ResendEmailPage = () => {
+const EmailResendPage = () => {
     let { state } = useLocation()
     const navigate = useNavigate()
 
@@ -50,4 +50,4 @@ const ResendEmailPage = () => {
     )
 }
 
-export default ResendEmailPage
+export default EmailResendPage
