@@ -4,6 +4,7 @@ import HomePage from './components/pages/HomePage'
 import SignUpPage from './components/pages/SignUpPage'
 import EmailResendPage from './components/pages/EmailResendPage'
 import EmailVerificationPage from './components/pages/EmailVerificationPage'
+import { library } from '@fortawesome/fontawesome-svg-core'
 
 export default function App() {
     return (
