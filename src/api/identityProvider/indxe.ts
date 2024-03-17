@@ -1,5 +1,6 @@
-import { User, UserManager } from 'oidc-client-ts'
+import { OidcStandardClaims, User, UserManager } from 'oidc-client-ts'
 import { PasswordFlowRequest } from './interface'
+import instance from '../axios'
 
 const webClient = new UserManager({
     client_id: process.env.REACT_APP_PASSWORD_FLOW_CLIENT_ID,
@@ -21,10 +22,17 @@ const resourceOwnerPassword = async (
     }
 }
 
-const getUser = async (): Promise<User | null> => {
+const getUser = async (
+    accessToken: string
+): Promise<OidcStandardClaims | null> => {
     try {
-        return await webClient.getUser()
+        return instance.get('https://localhost/connect/userinfo', {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        })
     } catch (error) {
+        console.log('error :>> ', error)
         throw error
     }
 }

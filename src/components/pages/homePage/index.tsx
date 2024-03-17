@@ -31,26 +31,19 @@ const HomePage = () => {
         mutationFn: IdentityProvider.resourceOwnerPassword,
     })
 
-    const { data: user } = useQuery({
-        queryKey: ['user'],
-        queryFn: IdentityProvider.getUser,
-    })
-
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         try {
-            console.log('data :>> ', data)
-
             const result = await authenticateMutationAsync({
                 username: data.email,
                 password: data.password,
                 skipUserInfo: false,
             })
 
-            console.log(user?.id_token)
+            // TODO: Add navigation to welcome page
         } catch (error) {
             setError(
                 'root',
-                { message: 'Email or Password is not correct' },
+                { message: 'Email or Password is not correct' }, // TODO: Refactor this
                 { shouldFocus: true }
             )
         }
