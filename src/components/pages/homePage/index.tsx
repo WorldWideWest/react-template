@@ -11,11 +11,14 @@ import { FormFields, schema } from './form'
 import { HeadingOne } from '../../shared/Heading'
 import { useNavigate } from 'react-router-dom'
 import { FormWrapper } from '../../shared/FormWrapper'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import IdentityProvider from '../../../api/identityProvider/indxe'
 
 const HomePage = () => {
     const {
         register,
         handleSubmit,
+        setError,
         formState: { errors, isValid, isLoading },
     } = useForm<FormFields>({
         resolver: zodResolver(schema),
@@ -24,9 +27,35 @@ const HomePage = () => {
 
     const navigate = useNavigate()
 
-    const onSubmit: SubmitHandler<FormFields> = (data) => {
-        console.log('data :>> ', data)
+    const { mutateAsync: authenticateMutationAsync } = useMutation({
+        mutationFn: IdentityProvider.resourceOwnerPassword,
+    })
+
+    const { data: user } = useQuery({
+        queryKey: ['user'],
+        queryFn: IdentityProvider.getUser,
+    })
+
+    const onSubmit: SubmitHandler<FormFields> = async (data) => {
+        try {
+            console.log('data :>> ', data)
+
+            const result = await authenticateMutationAsync({
+                username: data.email,
+                password: data.password,
+                skipUserInfo: false,
+            })
+
+            console.log(user?.id_token)
+        } catch (error) {
+            setError(
+                'root',
+                { message: 'Email or Password is not correct' },
+                { shouldFocus: true }
+            )
+        }
     }
+
     return (
         <FormWrapper>
             <HeadingOne text='Welcome back' />
@@ -50,9 +79,7 @@ const HomePage = () => {
                         placeholder='Password'
                         type='password'
                     />
-                    {errors.password && (
-                        <ErrorLabel text={errors.password.message} />
-                    )}
+                    {errors.root && <ErrorLabel text={errors.root.message} />}
                 </div>
                 <PrimaryButton
                     text='Login'
@@ -64,7 +91,7 @@ const HomePage = () => {
                 Don't have an account?{'  '}
                 <a
                     className='text-md text-primary-normal hover:underline hover:cursor-pointer'
-                    onClick={() => navigate('signup')} // TODO: Create signup page
+                    onClick={() => navigate('signup')}
                 >
                     SignUp
                 </a>
