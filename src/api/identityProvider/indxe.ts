@@ -17,7 +17,6 @@ const resourceOwnerPassword = async (
     try {
         return await webClient.signinResourceOwnerCredentials({ ...data })
     } catch (error) {
-        console.log(error)
         throw error
     }
 }
@@ -32,7 +31,6 @@ const getUser = async (
             },
         })
     } catch (error) {
-        console.log('error :>> ', error)
         throw error
     }
 }

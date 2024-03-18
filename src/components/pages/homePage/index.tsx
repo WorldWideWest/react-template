@@ -11,8 +11,10 @@ import { FormFields, schema } from './form'
 import { HeadingOne } from '../../shared/Heading'
 import { useNavigate } from 'react-router-dom'
 import { FormWrapper } from '../../shared/FormWrapper'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import IdentityProvider from '../../../api/identityProvider/indxe'
+import ErrorMessage from '../../../constants/identity/errors/message'
+import { InputWrapper } from '../../shared/InputWrapper'
 
 const HomePage = () => {
     const {
@@ -33,19 +35,15 @@ const HomePage = () => {
 
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         try {
-            const result = await authenticateMutationAsync({
+            await authenticateMutationAsync({
                 username: data.email,
                 password: data.password,
                 skipUserInfo: false,
             })
 
-            // TODO: Add navigation to welcome page
+            navigate('/welcome')
         } catch (error) {
-            setError(
-                'root',
-                { message: 'Email or Password is not correct' }, // TODO: Refactor this
-                { shouldFocus: true }
-            )
+            setError('root', { message: ErrorMessage.InvalidEmailOrPassword })
         }
     }
 
@@ -56,7 +54,7 @@ const HomePage = () => {
                 className='flex flex-col flex-wrap items-left text-left gap-4'
                 onSubmit={handleSubmit(onSubmit)}
             >
-                <div className='flex flex-col flex-wrap items-left'>
+                <InputWrapper>
                     <InputField
                         register={register('email')}
                         isError={!!errors.email}
@@ -64,8 +62,9 @@ const HomePage = () => {
                         type='email'
                     />
                     {errors.email && <ErrorLabel text={errors.email.message} />}
-                </div>
-                <div className='flex flex-col flex-wrap items-left'>
+                </InputWrapper>
+
+                <InputWrapper>
                     <InputField
                         register={register('password')}
                         isError={!!errors.email}
@@ -73,7 +72,8 @@ const HomePage = () => {
                         type='password'
                     />
                     {errors.root && <ErrorLabel text={errors.root.message} />}
-                </div>
+                </InputWrapper>
+
                 <PrimaryButton
                     text='Login'
                     isLoading={isLoading}

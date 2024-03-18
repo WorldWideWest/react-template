@@ -4,7 +4,7 @@ import HomePage from './components/pages/HomePage'
 import SignUpPage from './components/pages/SignUpPage'
 import EmailResendPage from './components/pages/EmailResendPage'
 import EmailVerificationPage from './components/pages/EmailVerificationPage'
-import { library } from '@fortawesome/fontawesome-svg-core'
+import WelcomePage from './components/pages/WelcomePage'
 
 export default function App() {
     return (
@@ -15,7 +15,7 @@ export default function App() {
                 <Route path='/resend' Component={EmailResendPage} />
                 <Route path='/verify' Component={EmailVerificationPage} />
                 {/* <Route path='/signin-redirect' Component={SigninRedirect} /> */}
-                {/* <Route path='/welcome' Component={Welcome} /> */}
+                <Route path='/welcome' Component={WelcomePage} />
                 {/* <Route path='/signout-redirect' Component={SignOutRedirect} /> */}
             </Routes>
         </BrowserRouter>

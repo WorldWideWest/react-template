@@ -8,6 +8,8 @@ export default class ErrorMessage {
     static readonly invalidName = (property: string): string =>
         `${property} can not have any special characters or numbers outside \'`
 
+    static readonly InvalidEmailOrPassword = 'Email or Password is not Valid'
+
     static readonly invalidLength = (
         property: string,
         min: number,
